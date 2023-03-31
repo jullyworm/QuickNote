@@ -43,7 +43,6 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
                 if (item.text.lowercase(Locale.getDefault())
                         .contains(text.lowercase(Locale.getDefault()))
                 ) {
-
                     filtered.add(item)
                 }
             }

@@ -1,56 +1,47 @@
-package com.example.quicknote
+package com.example.quicknote.core.presentation
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.quicknote.R
+import com.example.quicknote.core.PostNoteAdapter
 import com.example.quicknote.databinding.FragmentGridBinding
-import com.google.android.material.snackbar.Snackbar
 
 
 class GridFragment : Fragment(R.layout.fragment_grid) {
 
     private val binding by viewBinding(FragmentGridBinding::bind)
-
-
+    private val viewModel: GridViewModel by viewModels()
+    private val noteAdapter = PostNoteAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val postNoteAdapter = PostNoteAdapter()
-
-        val sGridLM: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, 1)
-
+        viewModel.getNotes()
         binding.recycler.apply {
-            layoutManager = sGridLM
-            adapter = postNoteAdapter.apply {
+            layoutManager = StaggeredGridLayoutManager(2, 1)
+            adapter = noteAdapter.apply {
                 onItemClick = {
-                    Snackbar.make(binding.root, it.text, Snackbar.LENGTH_LONG).show()
                     findNavController().navigate(
                         resId = R.id.action_gridFragment_to_noteFragment,
                         args = bundleOf(
-                            "text" to it.text,
                             "id" to it.id,
                         ),
                     )
                 }
-                submitList(Texts.texts)
             }
+        }
+        viewModel.notesLiveData.observe(viewLifecycleOwner){ list ->
+            noteAdapter.submitList(list)
         }
 
         binding.fab.setOnClickListener{
-            val i = Texts.texts.size
-            Texts.texts.add(NoteData(i, ""))
             findNavController().navigate(
                 resId = R.id.action_gridFragment_to_noteFragment,
-                args = bundleOf(
-                    "text" to "",
-                    "id" to i,
-                ),
             )
         }
         binding.toolbar.setOnMenuItemClickListener{

@@ -14,7 +14,7 @@ import com.example.quicknote.databinding.FragmentSearchBinding
 import com.google.android.material.snackbar.Snackbar
 
 
-class SearchFragment: Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private val viewModel: GridViewModel by viewModels()
     private lateinit var filterAdapter: FilterAdapter
@@ -39,8 +39,6 @@ class SearchFragment: Fragment(R.layout.fragment_search) {
                 }
             }
         }
-
-
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

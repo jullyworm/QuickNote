@@ -11,9 +11,9 @@ import com.example.quicknote.databinding.NoteContentCardBinding
 import com.example.quicknote.inflate
 
 
-class PostNoteAdapter: ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallback){
+class PostNoteAdapter : ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallback) {
 
-    var onItemClick: (Note)->Unit={}
+    var onItemClick: (Note) -> Unit = {}
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,21 +29,21 @@ class PostNoteAdapter: ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallbac
 
     class ViewHolder(
         parent: ViewGroup,
-        private val onItemClick:(Note)->Unit
+        private val onItemClick: (Note) -> Unit
     ) : RecyclerView.ViewHolder(
         parent.inflate(R.layout.note_content_card),
-    ){
+    ) {
         private val binding by viewBinding(NoteContentCardBinding::bind)
 
         fun bind(item: Note) {
             binding.text.text = item.text
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onItemClick(item)
             }
         }
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<Note>(){
+    object DiffCallback : DiffUtil.ItemCallback<Note>() {
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem
         }

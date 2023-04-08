@@ -35,16 +35,16 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
                 }
             }
         }
-        viewModel.notesLiveData.observe(viewLifecycleOwner){ list ->
+        viewModel.notesLiveData.observe(viewLifecycleOwner) { list ->
             noteAdapter.submitList(list)
         }
 
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             findNavController().navigate(
                 resId = R.id.action_gridFragment_to_noteFragment,
             )
         }
-        binding.toolbar.setOnMenuItemClickListener{
+        binding.toolbar.setOnMenuItemClickListener {
             findNavController().navigate(
                 resId = R.id.action_gridFragment_to_searchFragment,
             )

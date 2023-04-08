@@ -11,9 +11,9 @@ import com.example.quicknote.inflate
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FilterAdapter (dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.ViewHolder>(){
+class FilterAdapter(dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
     private var dataList: List<Note>
-    var onItemClick: (Note)->Unit={}
+    var onItemClick: (Note) -> Unit = {}
 
     init {
         this.dataList = dataList
@@ -29,6 +29,7 @@ class FilterAdapter (dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.
     override fun getItemCount(): Int {
         return dataList.size
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun filterList(filterList: MutableList<Note>) {
@@ -54,15 +55,15 @@ class FilterAdapter (dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.
 
     class ViewHolder(
         parent: ViewGroup,
-        private val onItemClick:(Note)->Unit
+        private val onItemClick: (Note) -> Unit
     ) : RecyclerView.ViewHolder(
         parent.inflate(R.layout.note_content_card),
-    ){
+    ) {
         private val binding by viewBinding(NoteContentCardBinding::bind)
 
         fun bind(item: Note) {
             binding.text.text = item.text
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onItemClick(item)
             }
         }

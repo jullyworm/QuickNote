@@ -2,6 +2,8 @@ package com.example.quicknote.core
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
@@ -11,13 +13,13 @@ import com.example.quicknote.inflate
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FilterAdapter(dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.ViewHolder>() {
-    private var dataList: List<Note>
+class FilterAdapter() : ListAdapter<Note, FilterAdapter.ViewHolder>(PostNoteAdapter.DiffCallback) {
+   // private var dataList: List<Note>
     var onItemClick: (Note) -> Unit = {}
 
-    init {
+  /*  init {
         this.dataList = dataList
-    }
+    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -26,18 +28,18 @@ class FilterAdapter(dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.V
         )
     }
 
-    override fun getItemCount(): Int {
+  /*  override fun getItemCount(): Int {
         return dataList.size
-    }
+    }*/
 
 
-    @SuppressLint("NotifyDataSetChanged")
+  /*  @SuppressLint("NotifyDataSetChanged")
     fun filterList(filterList: MutableList<Note>) {
         dataList = filterList
         notifyDataSetChanged()
-    }
+    }*/
 
-    fun filter(text: String) {
+    /*fun filter(text: String) {
         val filtered = ArrayList<Note>()
         for (item in dataList) {
             if (item.text.lowercase(Locale.getDefault())
@@ -47,10 +49,10 @@ class FilterAdapter(dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.V
             }
         }
         filterList(filtered)
-    }
+    }*/
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataList[position])
+    override fun onBindViewHolder(holder: FilterAdapter.ViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     class ViewHolder(
@@ -66,6 +68,15 @@ class FilterAdapter(dataList: List<Note>) : RecyclerView.Adapter<FilterAdapter.V
             binding.root.setOnClickListener {
                 onItemClick(item)
             }
+        }
+    }
+    object DiffCallback : DiffUtil.ItemCallback<Note>() {
+        override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 }

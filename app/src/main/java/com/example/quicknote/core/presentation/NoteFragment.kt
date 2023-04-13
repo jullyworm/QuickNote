@@ -19,13 +19,13 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args: Bundle = requireArguments()
-        val id: String? = args.getString("id")
+        val id: Int = requireArguments().getInt("id")
 
-        args.getString("id")?.let { viewModel.getNote(it) }
-        if (id == null) {
+        if (id == 0) {
             viewModel.addNote("")
+            viewModel.getAddedNote()
         }
+        else viewModel.getNote(id)
 
         viewModel.noteLiveData.observe(viewLifecycleOwner) { note ->
             binding.editText.text.append(note.text)

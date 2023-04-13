@@ -1,18 +1,24 @@
 package com.example.quicknote.core.data
 
-import com.example.quicknote.core.domain.Note
-import java.util.*
+import com.example.quicknote.core.data.db.NoteEntity
+import com.example.quicknote.mapValue
 
 class NoteRepository(
-    private val dataSource: DataSource = DataSource(),
+    private val dataSource: DatabaseDataSource = DatabaseDataSource(),
 ) {
 
-    fun getNotes() = dataSource.getNotes()
+    fun getNotes() = dataSource.getNotes().mapValue{
+        NoteMapper.fromDbToModel(it)
+    }
 
-    suspend fun getNote(id: String) = dataSource.getNote(id)
-    suspend fun addNote(text: String) = dataSource.addNote(text)
+    fun getNote(id: Int) =  NoteMapper.fromDbToModel(dataSource.getNoteById(id))
+    fun getLastNote() = NoteMapper.fromDbToModel(dataSource.getLastNote())
     suspend fun saveNote(
-        id: String?,
+        id: Int?,
         text: String
     ) = dataSource.saveNote(id, text)
+
+    fun searchNotes(text: String) = dataSource.search(text).mapValue {
+        NoteMapper.fromDbToModel(it)
+    }
 }

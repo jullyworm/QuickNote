@@ -1,11 +1,10 @@
 package com.example.quicknote.core.domain
 
 import com.example.quicknote.core.data.NoteRepository
-import kotlinx.coroutines.flow.Flow
 
-class GetOneNoteUseCase {
+class GetLastNoteUseCase {
     private val noteRepository : NoteRepository = NoteRepository()
-    operator fun invoke(id: Int): Note {
-        return noteRepository.getNote(id)
+    operator fun invoke(): Note {
+        return noteRepository.getLastNote()
     }
 }

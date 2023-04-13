@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 fun ViewGroup.inflate(
     @LayoutRes layoutId: Int,
@@ -19,4 +21,10 @@ fun Context.getColorFromAttribute(@AttrRes attrId: Int): Int {
     return TypedValue().also {
         theme.resolveAttribute(attrId, it, true)
     }.data
+}
+
+inline fun <T,R> Flow<List<T>>.mapValue(
+    noinline transform: (T) -> R,
+) = map { list ->
+    list.map{transform(it)}
 }

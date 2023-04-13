@@ -27,10 +27,7 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             adapter = noteAdapter.apply {
                 onItemClick = {
                     findNavController().navigate(
-                        resId = R.id.action_gridFragment_to_noteFragment,
-                        args = bundleOf(
-                            "id" to it.id,
-                        ),
+                        GridFragmentDirections.actionGridFragmentToNoteFragment(it.id)
                     )
                 }
             }
@@ -41,12 +38,12 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
 
         binding.fab.setOnClickListener {
             findNavController().navigate(
-                resId = R.id.action_gridFragment_to_noteFragment,
+                GridFragmentDirections.actionGridFragmentToNoteFragment(0)
             )
         }
         binding.toolbar.setOnMenuItemClickListener {
             findNavController().navigate(
-                resId = R.id.action_gridFragment_to_searchFragment,
+                GridFragmentDirections.actionGridFragmentToSearchFragment()
             )
             true
         }

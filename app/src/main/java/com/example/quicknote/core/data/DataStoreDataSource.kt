@@ -1,6 +1,6 @@
 package com.example.quicknote.core.data
 
-import androidx.datastore.preferences.core.preferencesOf
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.quicknote.core.QuickNoteApp
 import com.example.quicknote.core.dataStore
@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import java.util.*
 
-class DataSource {
+class DataStoreDataSource {
     private val dataStore = QuickNoteApp.INSTANCE.dataStore
 
     fun getNotes(): Flow<List<Note>> {
         return dataStore.data.map { preferences ->
             preferences.asMap().map { (id, text) ->
-                Note(id.name, text.toString())
+                Note(id.name.toInt(), text.toString())
             }
         }
     }
@@ -34,8 +34,8 @@ class DataSource {
     }
 
     //неприятный костыль для того, чтобы заметка создавалась нормально
-    suspend fun addNote(text: String): Note {
-        val id = UUID.randomUUID().toString()
+   /* suspend fun addNote(text: String): Note {
+        val id = UUID.randomUUID()
         dataStore.updateData {
             it.toMutablePreferences().apply {
                 set(
@@ -45,9 +45,9 @@ class DataSource {
             }.toPreferences()
         }
         return Note (id, text)
-    }
+    }*/
 
-    suspend fun saveNote(id: String?, text: String) {
+    suspend fun saveNote(id: Int?, text: String) {
         if (id == null) {
             dataStore.updateData {
                 it.toMutablePreferences().apply {
@@ -58,7 +58,7 @@ class DataSource {
                 }.toPreferences()
             }
         } else {
-            val key = stringPreferencesKey(id)
+            val key = stringPreferencesKey(id.toString())
             dataStore.updateData {
                 if (it.contains(key)) {
                     it.toMutablePreferences().apply {

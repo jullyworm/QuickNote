@@ -8,11 +8,14 @@ import com.example.quicknote.core.domain.GetNotesUseCase
 import com.example.quicknote.core.domain.Note
 import com.example.quicknote.core.domain.SaveNotesUseCase
 import com.example.quicknote.core.domain.SearchNotesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(
-    private val getNotesUseCase: GetNotesUseCase = GetNotesUseCase(),
-    private val searchNotesUseCase: SearchNotesUseCase = SearchNotesUseCase(),
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val getNotesUseCase: GetNotesUseCase,
+    private val searchNotesUseCase: SearchNotesUseCase,
 ) : ViewModel() {
     private val _notesLiveData = MutableLiveData<List<Note>>()
     val notesLiveData: LiveData<List<Note>> = _notesLiveData

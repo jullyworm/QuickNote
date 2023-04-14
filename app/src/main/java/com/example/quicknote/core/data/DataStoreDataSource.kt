@@ -1,5 +1,7 @@
 package com.example.quicknote.core.data
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.quicknote.core.QuickNoteApp
@@ -10,9 +12,11 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import java.util.*
+import javax.inject.Inject
 
-class DataStoreDataSource {
-    private val dataStore = QuickNoteApp.INSTANCE.dataStore
+class DataStoreDataSource @Inject constructor(
+    private val dataStore : DataStore <Preferences>
+){
 
     fun getNotes(): Flow<List<Note>> {
         return dataStore.data.map { preferences ->

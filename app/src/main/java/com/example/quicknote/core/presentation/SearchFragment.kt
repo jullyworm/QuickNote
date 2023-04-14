@@ -3,21 +3,21 @@ package com.example.quicknote.core.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
-import com.example.quicknote.core.FilterAdapter
+import com.example.quicknote.core.PostNoteAdapter
 import com.example.quicknote.databinding.FragmentSearchBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private val viewModel: SearchViewModel by viewModels()
-    private val filterAdapter: FilterAdapter = FilterAdapter()
+    private val noteAdapter: PostNoteAdapter = PostNoteAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +26,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val searchView = binding.search
         binding.recycler.apply {
-            adapter = filterAdapter.apply {
+            adapter = noteAdapter.apply {
                 onItemClick = {
                     Snackbar.make(binding.root, it.text, Snackbar.LENGTH_LONG).show()
                     findNavController().navigate(
@@ -36,7 +36,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
         viewModel.notesLiveData.observe(viewLifecycleOwner) { list ->
-            filterAdapter.submitList(list)
+            noteAdapter.submitList(list)
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

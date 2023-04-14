@@ -1,11 +1,15 @@
 package com.example.quicknote.core.data
 
 import com.example.quicknote.core.QuickNoteApp
+import com.example.quicknote.core.data.db.NoteDataBase
 import com.example.quicknote.core.data.db.NoteEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class DatabaseDataSource {
-    private val dao = QuickNoteApp.database.dao()
+class DatabaseDataSource @Inject constructor(
+    private val database: NoteDataBase,
+){
+    private val dao = database.dao()
 
     fun getNotes(): Flow<List<NoteEntity>> {
         return dao.getNotes()

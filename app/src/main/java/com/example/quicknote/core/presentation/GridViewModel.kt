@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.quicknote.core.domain.GetNotesUseCase
 import com.example.quicknote.core.domain.Note
 import com.example.quicknote.core.domain.SaveNotesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class GridViewModel(
-    private val getNotesUseCase: GetNotesUseCase = GetNotesUseCase(),
-    private val saveNotesUseCase: SaveNotesUseCase = SaveNotesUseCase(),
+@HiltViewModel
+class GridViewModel @Inject constructor(
+    private val getNotesUseCase: GetNotesUseCase,
+    private val saveNotesUseCase: SaveNotesUseCase,
 ) : ViewModel() {
     private val _notesLiveData = MutableLiveData<List<Note>>()
     val notesLiveData: LiveData<List<Note>> = _notesLiveData

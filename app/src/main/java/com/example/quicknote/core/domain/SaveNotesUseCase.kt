@@ -1,9 +1,11 @@
 package com.example.quicknote.core.domain
 
-import com.example.quicknote.core.data.NoteRepository
+import com.example.quicknote.core.data.repository.NoteRepository
+import javax.inject.Inject
 
-class SaveNotesUseCase {
-    private val noteRepository: NoteRepository = NoteRepository()
+class SaveNotesUseCase @Inject constructor(
+    private val noteRepository: NoteRepository
+){
     suspend operator fun invoke(
         id: Int?,
         text: String,

@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
 import com.example.quicknote.databinding.FragmentNoteBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoteFragment : Fragment(R.layout.fragment_note) {
     private val binding by viewBinding(FragmentNoteBinding::bind)
     private val viewModel: NoteViewModel by viewModels()
@@ -22,7 +24,6 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
         val id: Int = requireArguments().getInt("id")
 
         if (id == 0) {
-            viewModel.addNote("")
             viewModel.getAddedNote()
         }
         else viewModel.getNote(id)

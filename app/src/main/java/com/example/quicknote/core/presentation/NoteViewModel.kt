@@ -5,14 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quicknote.core.domain.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel(
-    private val saveNotesUseCase: SaveNotesUseCase = SaveNotesUseCase(),
-    private val getOneNoteUseCase: GetOneNoteUseCase = GetOneNoteUseCase(),
-    private val addNoteUseCase: AddNoteUseCase = AddNoteUseCase(),
-    private val getLastNoteUseCase: GetLastNoteUseCase = GetLastNoteUseCase()
+@HiltViewModel
+class NoteViewModel @Inject constructor(
+    private val saveNotesUseCase: SaveNotesUseCase,
+    private val getOneNoteUseCase: GetOneNoteUseCase,
+    private val addNoteUseCase: AddNoteUseCase,
+    private val getLastNoteUseCase: GetLastNoteUseCase
 ) : ViewModel() {
     private val _noteLiveData = MutableLiveData<Note>()
     val noteLiveData: LiveData<Note> = _noteLiveData

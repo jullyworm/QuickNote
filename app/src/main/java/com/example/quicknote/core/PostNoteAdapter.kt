@@ -42,7 +42,6 @@ class PostNoteAdapter : ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallba
             }
         }
     }
-
     object DiffCallback : DiffUtil.ItemCallback<Note>() {
         override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem

@@ -12,8 +12,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
 import com.example.quicknote.core.PostNoteAdapter
 import com.example.quicknote.databinding.FragmentGridBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GridFragment : Fragment(R.layout.fragment_grid) {
 
     private val binding by viewBinding(FragmentGridBinding::bind)
@@ -37,6 +38,7 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
         }
 
         binding.fab.setOnClickListener {
+            viewModel.addNote("")
             findNavController().navigate(
                 GridFragmentDirections.actionGridFragmentToNoteFragment(0)
             )

@@ -1,12 +1,8 @@
 package com.example.quicknote.core.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.room.Room
-import com.example.quicknote.core.QuickNoteApp
 import com.example.quicknote.core.data.db.NoteDataBase
-import com.example.quicknote.core.dataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +16,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(
+    fun provideNoteDataBase(
         @ApplicationContext context: Context,
     ): NoteDataBase {
         return Room.databaseBuilder(
@@ -28,13 +24,5 @@ class DatabaseModule {
             NoteDataBase::class.java,
             "notes.db"
         ).build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideDataStore(
-        @ApplicationContext context: Context,
-    ): DataStore<Preferences> {
-        return context.dataStore
     }
 }

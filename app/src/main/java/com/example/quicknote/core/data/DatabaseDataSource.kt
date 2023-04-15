@@ -1,6 +1,5 @@
 package com.example.quicknote.core.data
 
-import com.example.quicknote.core.QuickNoteApp
 import com.example.quicknote.core.data.db.NoteDataBase
 import com.example.quicknote.core.data.db.NoteEntity
 import kotlinx.coroutines.flow.Flow

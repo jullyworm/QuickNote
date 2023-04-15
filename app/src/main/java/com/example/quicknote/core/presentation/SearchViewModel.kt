@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quicknote.core.domain.GetNotesUseCase
 import com.example.quicknote.core.domain.Note
-import com.example.quicknote.core.domain.SaveNotesUseCase
 import com.example.quicknote.core.domain.SearchNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

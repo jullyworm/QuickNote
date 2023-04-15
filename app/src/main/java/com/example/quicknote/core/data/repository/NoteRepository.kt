@@ -1,8 +1,6 @@
 package com.example.quicknote.core.data.repository
 
-import com.example.quicknote.core.data.NoteMapper
 import com.example.quicknote.core.domain.Note
-import com.example.quicknote.mapValue
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {

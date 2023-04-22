@@ -6,22 +6,12 @@
     style="@style/Card"
     android:layout_margin="8dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="182dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/text"
-        app:srcCompat="@drawable/pic" />
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image"
+        app:layout_constraintTop_toTopOf="parent"
         android:padding="16dp"
         android:text="Note text that resizes the card vertically to fit itself"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

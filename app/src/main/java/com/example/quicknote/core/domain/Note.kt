@@ -7,4 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Note(
     val id: Int,
     val text: String,
+    val imagePath : String?
 ) : Parcelable

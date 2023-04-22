@@ -16,16 +16,51 @@
             android:autofillHints="lol"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/edit_text"
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="top"
-        android:background="@android:color/transparent"
-        app:layout_behavior = "com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        app:layout_behavior = "com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="top">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_input"
+                    android:hint="Text here..."
+                    android:background="@android:color/transparent"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                style="@style/Widget.Material3.Chip.Suggestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select image..."
+                app:chipIcon="@drawable/outline_add_photo_alternate_24"
+                app:chipIconTint="?colorPrimary"
+                app:chipIconEnabled="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" />
+
+                <include
+                    android:id="@+id/image_card"
+                    layout="@layout/image_card" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+<!--
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -34,5 +69,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/baseline_send_24"/>
-
+-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class DatabaseDataSource @Inject constructor(
     private val database: NoteDataBase,
-){
+) {
     private val dao = database.dao()
 
     fun getNotes(): Flow<List<NoteEntity>> {
@@ -18,19 +18,23 @@ class DatabaseDataSource @Inject constructor(
         return dao.getNoteById(id)
     }
 
-    fun getLastNote() : NoteEntity{
+    fun getLastNote(): NoteEntity {
         return dao.getLastNote()
     }
 
-    fun saveNote(id: Int?, text: String){
+    fun saveNote(id: Int?, text: String, imagePath: String?) {
         if (id == null) {
-            dao.saveNote(NoteEntity(0, text))
-        }else{
-            dao.saveNote(NoteEntity(id, text))
+            dao.saveNote(NoteEntity(0, text, imagePath))
+        } else {
+            dao.saveNote(NoteEntity(id, text, imagePath))
         }
     }
 
-    fun search(text: String) : Flow<List<NoteEntity>> {
+    fun deleteNote(noteEntity: NoteEntity) {
+        dao.deleteNote(noteEntity)
+    }
+
+    fun search(text: String): Flow<List<NoteEntity>> {
         return dao.search(text)
     }
 }

@@ -7,11 +7,13 @@ object NoteMapper {
 
     fun fromModelToDb(model: Note) = NoteEntity(
         id = model.id,
-        text = model.text
+        text = model.text,
+        imagePath = model.imagePath
     )
 
     fun fromDbToModel(db: NoteEntity) = Note(
         id = db.id,
-        text = db.text
+        text = db.text,
+        imagePath = db.imagePath
     )
 }

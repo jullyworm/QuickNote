@@ -1,7 +1,5 @@
 package com.example.quicknote.core
 
-import android.graphics.BitmapFactory
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -9,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
 import com.example.quicknote.core.domain.Note
-import com.example.quicknote.databinding.NoteContentCardBinding
+import com.example.quicknote.databinding.NoteTextCardBinding
 import com.example.quicknote.inflate
 
 
-class PostNoteAdapter : ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallback) {
+class SearchAdapter : ListAdapter<Note, SearchAdapter.ViewHolder>(DiffCallback) {
 
     var onItemClick: (Note) -> Unit = {}
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,31 +27,20 @@ class PostNoteAdapter : ListAdapter<Note, PostNoteAdapter.ViewHolder>(DiffCallba
         holder.bind(getItem(position))
     }
 
-    fun getNoteId(position: Int): Int {
-        return getItem(position).id
-    }
-
     class ViewHolder(
         parent: ViewGroup,
         private val onItemClick: (Note) -> Unit
     ) : RecyclerView.ViewHolder(
-        parent.inflate(R.layout.note_content_card),
+        parent.inflate(R.layout.note_text_card),
     ) {
-        private val binding by viewBinding(NoteContentCardBinding::bind)
+        private val binding by viewBinding(NoteTextCardBinding::bind)
 
         fun bind(item: Note) {
             binding.text.text = item.text
-            if (item.imagePath == null) {
-                binding.image.visibility = View.GONE
-            } else {
-                val imgBitmap = BitmapFactory.decodeFile(item.imagePath)
-                binding.image.setImageBitmap(imgBitmap)
-            }
             binding.root.setOnClickListener {
                 onItemClick(item)
             }
         }
-
     }
 
     object DiffCallback : DiffUtil.ItemCallback<Note>() {

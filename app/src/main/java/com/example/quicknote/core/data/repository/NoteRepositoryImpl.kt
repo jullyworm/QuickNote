@@ -2,6 +2,7 @@ package com.example.quicknote.core.data.repository
 
 import com.example.quicknote.core.data.DatabaseDataSource
 import com.example.quicknote.core.data.NoteMapper
+import com.example.quicknote.core.domain.Note
 import com.example.quicknote.mapValue
 import javax.inject.Inject
 
@@ -17,10 +18,15 @@ class NoteRepositoryImpl @Inject constructor(
     override fun getLastNote() = NoteMapper.fromDbToModel(dataSource.getLastNote())
     override suspend fun saveNote(
         id: Int?,
-        text: String
-    ) = dataSource.saveNote(id, text)
+        text: String,
+        imagePath: String?
+    ) = dataSource.saveNote(id, text, imagePath)
 
     override fun searchNotes(text: String) = dataSource.search(text).mapValue {
         NoteMapper.fromDbToModel(it)
     }
+
+    override fun deleteNote(note: Note) = dataSource.deleteNote(NoteMapper.fromModelToDb(note))
+
+
 }

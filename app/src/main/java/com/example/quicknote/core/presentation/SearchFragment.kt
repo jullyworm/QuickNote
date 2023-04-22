@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
-import com.example.quicknote.core.PostNoteAdapter
+import com.example.quicknote.core.SearchAdapter
 import com.example.quicknote.databinding.FragmentSearchBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private val viewModel: SearchViewModel by viewModels()
-    private val noteAdapter: PostNoteAdapter = PostNoteAdapter()
+    private val noteAdapter: SearchAdapter = SearchAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

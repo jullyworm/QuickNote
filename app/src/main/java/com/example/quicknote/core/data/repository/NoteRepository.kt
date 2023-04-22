@@ -10,7 +10,10 @@ interface NoteRepository {
     fun getLastNote() : Note
     suspend fun saveNote(
         id: Int?,
-        text: String
+        text: String,
+        imagePath: String?
     )
     fun searchNotes(text: String) : Flow<List<Note>>
+
+    fun deleteNote(note: Note)
 }

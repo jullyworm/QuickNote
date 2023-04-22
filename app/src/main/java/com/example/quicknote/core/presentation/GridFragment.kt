@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.quicknote.R
@@ -36,12 +38,33 @@ class GridFragment : Fragment(R.layout.fragment_grid) {
             noteAdapter.submitList(list)
         }
 
+        val itemTouchHelperCallback =
+            object :
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    viewModel.deleteNote(noteAdapter.getNoteId(viewHolder.adapterPosition))
+                }
+            }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recycler)
+
         binding.fab.setOnClickListener {
             viewModel.addNote("")
             findNavController().navigate(
                 GridFragmentDirections.actionGridFragmentToNoteFragment(0)
             )
         }
+
+
         binding.toolbar.setOnMenuItemClickListener {
             findNavController().navigate(
                 GridFragmentDirections.actionGridFragmentToSearchFragment()

@@ -51,6 +51,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         })
+
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 }
 

@@ -73,5 +73,10 @@ class NoteFragment : Fragment(R.layout.fragment_note) {
             viewModel.deleteImage()
             viewModel.updateNote()
         }
+        binding.toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        binding.toolbar.setNavigationIconTint(binding.textInput.textColors.defaultColor)
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 }
